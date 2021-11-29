@@ -51,3 +51,21 @@ npm i koa-router
 3.编写路由
 4.注册中间件
 
+# 2. 编写路由
+创建 src/router 目录，编写user.route.js
+
+# 3. 改写 main.js
+
+## [5] 目录结构优化
+跟业务相关的
+# 1. 将http 服务和app 业务拆分
+创建src/app/index.js
+
+# 2. 将路由和控制器拆分
+
+路由： 解析 URL， 分发给控制器对应的方法
+
+控制器： 处理不同的业务
+
+创建controller/user.controller.js
+
