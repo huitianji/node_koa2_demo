@@ -98,6 +98,26 @@ class UserService {
 
 module.exports = new UserService();
 ```
+## [7] 数据库操作
+ sequelize 集成
+ sequelize ORM 数据库工具
+ORM： 对象关系映射
+
+· 数据表映射（对应）一个对象
+· 数据表中的数据行（记录）对应一个对象
+· 数据表 字段对应对象的属性
+· 数据表的操作对应对象的方法
+
+安装：
+npm install sequelize mysql2 --save 
+
+
+
+
+
+
+
+
 
 
 

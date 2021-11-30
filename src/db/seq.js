@@ -1,0 +1,13 @@
+const { Sequelize } = require('sequelize');
+const { MYSQL_HOST, MYSQL_PORT, MYSQL_USER, MYSQL_PWD, MYSQL_DB} = require('../config/config.default')
+
+const req = new Sequelize(MYSQL_DB, MYSQL_USER, MYSQL_PWD, {
+    host: MYSQL_HOST,
+    dialect: 'mysql'
+});
+
+req.authenticate().then(() => {
+    console.log('链接数据库成功');
+}).catch((err) => {
+    console.log('链接数据库失败', err);
+}) 
