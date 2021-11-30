@@ -26,7 +26,7 @@ node src/main.js
 
 ## [3]项目基本优化
 # 1.自动重启服务。
-安装nodemon 工具
+安装nodemon 工具  --save
 npm i nodemon
 
 # 2. 读取配置文件
@@ -68,4 +68,37 @@ npm i koa-router
 控制器： 处理不同的业务
 
 创建controller/user.controller.js
+
+## [6] 解析body 拆分service层
+koa-body
+1. 安装koa-body
+npm i koa-body
+
+2. 注册中间件
+改写app/index.js 
+
+const KoaBody = require('koa-body');
+app.use(KoaBody());
+
+3. 解析请求数据
+
+改写 controller/user.controller.js
+
+4. 拆分service 层
+service 主要是做数据库处理的。
+创建 src/service/user.service.js
+```
+class UserService {
+  async createUser(user_name, password) {
+    // todo: 写入数据库
+
+    return '写入数据库成功';
+  }
+}
+
+module.exports = new UserService();
+```
+
+
+
 
