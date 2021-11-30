@@ -111,9 +111,11 @@ ORM： 对象关系映射
 安装：
 npm install sequelize mysql2 --save 
 
+# 3. 编写配置文件
+.env
 
-
-
+## [8] 创建user 模型
+创建 src/model/use.mode.js
 
 
 
