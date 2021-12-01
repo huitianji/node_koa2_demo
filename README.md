@@ -119,8 +119,106 @@ npm install sequelize mysql2 --save
 
 ## [9] 添加用户
 
+## [10] 错误处理
 
+src/controller/user.controller.js
+```
+const User = require('../model/use.mode');
+const { createUser, getUserInfo } = require('../service/user.service')
+class UserController {
+    async register(ctx, next) {
+        // 1.获取数据
+        // console.log(ctx.request.body)
+        // ctx.body = '用户注册成功'
+        const {user_name, password} = ctx.request.body; 
+        // 合法性
+        if(!user_name || !password) {
+          console.log('用户名或密码为空', ctx.request.body)
+          ctx.status = 400; // bad request 
+          ctx.body = {
+            code: '10001',// 1大的模块(2前端1后端)  00 模块  01 编号
+            message: '用户名或密码为空',
+            result: ''
+          }
+          return;
+        }
+        // 合理性
+        // mdn http 响应码
+        if(getUserInfo({ user_name })) {
+          ctx.status = 409; // 冲突 - conflict
+          ctx.body = {
+            code: '10002',
+            message: '用户已经存在',
+            result: ''
+          }
+          return;
+        }
+        // 2.操作数据库
+        const res = await createUser(user_name, password)
+        // console.log(res)
+        // 3.返回结果
+        // ctx.body = ctx.request.body;
+        ctx.body = {
+            code: '0',
+            message: '用户注册成功',
+            result: {
+                id: res.id,
+                user_name: res.user_name
+            }
+        }
+    }
 
+    async login(ctx, next) {
+        ctx.body = '登录成功'
+    }
+}
 
+module.exports = new UserController();
+```
+
+src/service/user.service.js
+```
+const User = require('../model/use.mode')
+class UserService {
+  async createUser(user_name, password) {
+    // todo: 写入数据库
+    // return '写入数据库成功';
+    // 写入数据库
+    // res = await  User.create({
+    //   user_name: user_name,
+    //   password: password
+    // })
+    // await（关键字） 表达式-返回值: promise 对象的值 （value, state）
+    // 返回的是成功值，错误的通过catch 返回来。
+    const res = await User.create({user_name, password})
+    // console.log(res)
+
+    // 把res 作为一个对象返回
+    return res.dataValues;
+    // 
+  }
+
+  async getUserInfo({id, user_name, password, is_admin}) {
+    const whereOpt = {}
+
+    id && Object.assign(whereOpt, { id })
+    user_name && Object.assign(whereOpt, { user_name })
+    password && Object.assign(whereOpt, { password })
+    is_admin && Object.assign(whereOpt, { is_admin })
+
+    const res = await User.findOne({
+      attributes: ['id', 'user_name', 'password', 'is_admin'],
+      where: whereOpt
+    })
+
+    return res ? res.dataValues : null;
+  }
+}
+
+module.exports = new UserService();
+
+```
+
+## 
 
 
