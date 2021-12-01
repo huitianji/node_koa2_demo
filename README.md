@@ -117,7 +117,7 @@ npm install sequelize mysql2 --save
 ## [8] 创建user 模型
 创建 src/model/use.mode.js
 
-
+## [9] 添加用户
 
 
 
