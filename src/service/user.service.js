@@ -30,8 +30,8 @@ class UserService {
       attributes: ['id', 'user_name', 'password', 'is_admin'],
       where: whereOpt
     })
-
-    return res ? res.dataValues : null;
+    // console.log('res=',res)
+    return (res ? res.dataValues : null);
   }
 }
 
