@@ -77,7 +77,7 @@ npm i koa-body
 2. 注册中间件
 改写app/index.js 
 
-const KoaBody = require('koa-body');
+const KoaBody = require('koa-body'); 
 app.use(KoaBody());
 
 3. 解析请求数据
@@ -219,6 +219,9 @@ module.exports = new UserService();
 
 ```
 
-## [11] 拆分中间件
+## [11] 拆分中间件-1
 
 
+## [12] 拆分中间件-2 : 错误处理完善
+```
+```

@@ -1,5 +1,5 @@
 const { getUserInfo } = require('../service/user.service');
-const { userFormateError, userAlreadyExited } = require('../constant/err.type');
+const { userFormateError, userAlreadyExited, userRegisterError } = require('../constant/err.type');
 const userValidator = async (ctx, next) => {
   const {user_name, password} = ctx.request.body;
   // 合法性
@@ -22,15 +22,30 @@ const userValidator = async (ctx, next) => {
 const verifyUser = async (ctx, next) => {
   const { user_name } = ctx.request.body;
   // 合理性
-  // console.log('user_name=',user_name, '--', getUserInfo({ user_name }))
-  if(getUserInfo({ user_name })) {
-    // ctx.status = 409; // 冲突 - conflict
-    // ctx.body = {
-    //   code: '10002',
-    //   message: '用户已经存在',
-    //   result: ''
-    // }
-    ctx.app.emit('error', userAlreadyExited, ctx);
+  // console.log('user_name=',user_name, '--', await getUserInfo({ user_name }))
+  // await getUserInfo({ user_name })   表达式
+  //--1
+  // if(await getUserInfo({ user_name })) {
+  //   // ctx.status = 409; // 冲突 - conflict
+  //   // ctx.body = {
+  //   //   code: '10002',
+  //   //   message: '用户已经存在',
+  //   //   result: ''
+  //   // }
+  //   ctx.app.emit('error', userAlreadyExited, ctx);
+  //   return;
+  // }
+  // --2
+  try {
+    const res = await getUserInfo({user_name});
+    if(res) {
+      console.error('用户名已经存在', {user_name});
+      ctx.app.emit('error', userAlreadyExited, ctx);
+      return;
+    }
+  } catch(err) {
+    console.error('获取用户信息错误', err);
+    ctx.app.emit('error', userRegisterError, ctx);
     return;
   }
 

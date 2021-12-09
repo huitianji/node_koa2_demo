@@ -13,6 +13,7 @@ class UserService {
     const res = await User.create({user_name, password})
     // console.log(res)
 
+    // console.log(aaa);// 模拟用户注册错误
     // 把res 作为一个对象返回
     return res.dataValues;
     // 
@@ -31,10 +32,10 @@ class UserService {
       where: whereOpt
     })
     // console.log('res=',res)
-    return (res ? res.dataValues : null);
+    return (res ? res.dataValues : null); //返回的是promise 对象
   }
 }
-
+// 调用service 最好都加上try {} catch(err) {}
 module.exports = new UserService();
 
 
