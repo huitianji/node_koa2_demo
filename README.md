@@ -223,5 +223,20 @@ module.exports = new UserService();
 
 
 ## [12] 拆分中间件-2 : 错误处理完善
+
 ```
 ```
+
+## [13] 密码加密
+
+在将密码保持到数据库之前，要对密码进行加密处理
+
+<!-- bcrypt -->
+bcryptjs
+111aaa(加盐) 加盐加密
+
+1. 安装 bcryptjs
+```
+npm install bcryptjs
+```
+
