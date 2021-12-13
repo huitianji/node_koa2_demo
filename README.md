@@ -240,3 +240,17 @@ bcryptjs
 npm install bcryptjs
 ```
 
+## [14] 验证登录
+
+## [15] 颁发token - 用户的认证
+登录成功后，给用户颁发一个令牌 token ,用户在以后每一次请求中都携带这个令牌
+jwt -- jsonwebtoken
+header: 头部
+payload: 载荷
+signature: 签名
+
+安装jsonwebtoken
+
+```
+npm i jsonwebtoken
+```
