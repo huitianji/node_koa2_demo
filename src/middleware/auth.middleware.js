@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = require('../config/config.default');
-const { tokenExpiredError, invalidToken } = require('../constant/err.type');
+const { tokenExpiredError, invalidToken, hasNotAdminPermisson } = require('../constant/err.type');
 
 const auth = async (ctx, next) => {
   const { authorization } = ctx.request.header;
@@ -10,6 +10,7 @@ const auth = async (ctx, next) => {
     // user中就包含了payload 信息{ id, user_name, is_admin }
     const user = jwt.verify(token, JWT_SECRET);
     ctx.state.user = user; 
+    // console.log('-{-', user, '-}-');
 
   } catch (err) {
     switch (err.name) {
@@ -26,6 +27,18 @@ const auth = async (ctx, next) => {
   await next();
 }
 
+const hadAdminPermission = async (ctx, next) => {
+  const { is_admin} = ctx.state.user;
+
+  if (!is_admin) {
+    console.error('该用户没有管理员权限', ctx.state.user);
+    return ctx.app.emit('error', hasNotAdminPermisson, ctx);
+  }
+  
+  await next();
+}
+
 module.exports = {
-  auth
+  auth,
+  hadAdminPermission
 }

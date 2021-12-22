@@ -12,5 +12,5 @@ module.exports = (err, ctx) => {
   }
   ctx.status = status;
   ctx.body = err;
-  console.log('--err--', err)
+  console.log('--err[errHandler.js]--', err)
 }
