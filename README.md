@@ -254,3 +254,6 @@ signature: 签名
 ```
 npm i jsonwebtoken
 ```
+
+## 启动静态资源
+npm install koa-static
