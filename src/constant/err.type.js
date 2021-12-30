@@ -48,5 +48,10 @@ module.exports = {
     code: '10201',
     message: '图片上传失败',
     result: ''
+  },
+  unSupportFileType: {
+    code: '10202',
+    message: '不支持上传文件的格式',
+    result: ''
   }
 }
