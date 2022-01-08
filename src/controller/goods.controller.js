@@ -1,5 +1,6 @@
 const path = require('path');
-const { fileUploadError, unSupportFileType } = require('../constant/err.type');
+const { fileUploadError, unSupportFileType, publishGoodsError } = require('../constant/err.type');
+const { createGoods } = require('../service/goods.service');
 class GoodsController {
   async upload (ctx, next) {
     const fileType = ['image/jpg', 'image/jpeg', 'image/png', 'image/webp'];
@@ -20,6 +21,23 @@ class GoodsController {
       return ctx.app.emit('error', fileUploadError, ctx);
     }
     // ctx.body = '图片上传成功'
+  }
+
+  // 控制器是最后的中间件 可以不用写next 
+  async create (ctx) {
+    // 直接调用service的createGoods方法
+    try {
+      // const res = await createGoods(ctx.request.body);
+      const {createdAt, updatedAt , ...res} = await createGoods(ctx.request.body);
+      ctx.body = {
+        code: 0,
+        message: '发布商品职位成功',
+        result: res
+      }
+    } catch(err) {
+      console.error(err);
+      return ctx.app.emit('error', publishGoodsError, ctx);
+    }
   }
 }
 
