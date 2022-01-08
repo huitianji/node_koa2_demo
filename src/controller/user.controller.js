@@ -81,7 +81,7 @@ class UserController {
     // console.log(id,'--', password);
     // return;
     // await updateById({id, password});
-    // console.log(await updateById({id, password}))
+    // console.log(await updateById({id, password}), '--{}--', id, password);
     if (await updateById({id, password})) {
       ctx.body = {
         code: 0,
@@ -91,7 +91,7 @@ class UserController {
     } else {
       ctx.body = {
         code: '10007',
-        message: '修改密码错误',
+        message: '修改密码错误!',
         result: ''
       }
     }

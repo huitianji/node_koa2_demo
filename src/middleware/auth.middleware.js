@@ -5,7 +5,7 @@ const { tokenExpiredError, invalidToken, hasNotAdminPermisson } = require('../co
 const auth = async (ctx, next) => {
   const { authorization } = ctx.request.header;
   const token = authorization.replace('Bearer ', '');
-
+  
   try {
     // user中就包含了payload 信息{ id, user_name, is_admin }
     const user = jwt.verify(token, JWT_SECRET);

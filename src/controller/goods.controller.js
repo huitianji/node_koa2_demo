@@ -2,7 +2,7 @@ const path = require('path');
 const { fileUploadError, unSupportFileType } = require('../constant/err.type');
 class GoodsController {
   async upload (ctx, next) {
-    const fileType = ['image/jpg', 'image/jpeg', 'image/png'];
+    const fileType = ['image/jpg', 'image/jpeg', 'image/png', 'image/webp'];
     // console.log(ctx.request.files);
     const { file } = ctx.request.files;
     if (file) {

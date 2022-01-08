@@ -257,3 +257,8 @@ npm i jsonwebtoken
 
 ## 启动静态资源
 npm install koa-static
+
+## [23] 集成统一的参数格式校验
+npm install koa-parameter --save
+<!-- koa-validation-fg -->
+<!-- koa-params -->
