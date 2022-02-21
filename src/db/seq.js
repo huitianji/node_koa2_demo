@@ -6,7 +6,7 @@ const seq = new Sequelize(MYSQL_DB, MYSQL_USER, MYSQL_PWD, {
     dialect: 'mysql'
 });
 
-// req.authenticate().then(() => {
+// seq.authenticate().then(() => {
 //     console.log('链接数据库成功');
 // }).catch((err) => {
 //     console.log('链接数据库失败', err);

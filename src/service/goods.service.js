@@ -9,6 +9,12 @@ class goodsService {
     // console.log(res, '--res--')
     return res.dataValues;
   }
+
+  async updateGoods(id, goods) {
+    const res = await Goods.update(goods, { where: { id } });
+
+    return res[0] > 0 ? true : false;
+  }
 }
 
 module.exports = new goodsService();
