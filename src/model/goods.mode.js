@@ -31,6 +31,8 @@ const Goods = seq.define('db_goods', {
   //   comment: '商品删除'
   // }
 
+}, {
+  paranoid: true
 })
 // 强制同步数据库（创建数据表）
 // Goods.sync({force: true})

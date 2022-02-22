@@ -1,6 +1,6 @@
 const path = require('path');
 const { fileUploadError, unSupportFileType, publishGoodsError, invalidGoodsId } = require('../constant/err.type');
-const { createGoods, updateGoods, removeGoods } = require('../service/goods.service');
+const { createGoods, updateGoods, removeGoods, restoreGoods } = require('../service/goods.service');
 class GoodsController {
   async upload (ctx, next) {
     const fileType = ['image/jpg', 'image/jpeg', 'image/png', 'image/webp'];
@@ -58,15 +58,41 @@ class GoodsController {
     }
   }
 
-  // 硬删除
+  // 删除、下架
   async remove (ctx) {
-    const res = await removeGoods(ctx.params.id);
-    ctx.body = {
-      code: 0,
-      message: '删除商品成功',
-      result: ''
+    try {
+      const res = await removeGoods(ctx.params.id);
+      if (res) {
+        ctx.body = {
+          code: 0,
+          message: '下架简历成功',
+          result: ''
+        }
+      } else {
+        return ctx.app.emit('error', invalidGoodsId, ctx);
+      }
+     
+    } catch (err) {
+      console.error(err);
+    }
+   
+  }
+
+  // 恢复
+  async restore(ctx) {
+    const res = await restoreGoods(ctx.params.id);
+    if (res) {
+      ctx.body = {
+        code: 0,
+        message: '恢复简历成功',
+        result: ''
+      }
+    } else {
+      return ctx.app.emit('error', invalidGoodsId, ctx);
     }
   }
+
+  // 
 
 }
 

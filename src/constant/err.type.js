@@ -66,7 +66,7 @@ module.exports = {
   },
   invalidGoodsId: {
     code: '10205',
-    message: '待修改/删除的商品不存在',
+    message: '无效的简历ID',
     result: ''
   }
 }
