@@ -24,10 +24,17 @@ const Goods = seq.define('db_goods', {
     allowNull: false,
     comment: '商品图片的路径'
   }
+  // ,
+  // deletedAt: {
+  //   type: DataTypes.BOOLEAN,
+  //   allowNull: true,
+  //   comment: '商品删除'
+  // }
 
 })
 // 强制同步数据库（创建数据表）
 // Goods.sync({force: true})
+// node src/model/goods.mode.js
 
 module.exports = Goods;
 

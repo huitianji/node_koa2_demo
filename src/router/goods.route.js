@@ -1,5 +1,5 @@
 const Router = require('koa-router');
-const { upload, create, update } = require('../controller/goods.controller');
+const { upload, create, update, remove } = require('../controller/goods.controller');
 const { auth, hadAdminPermission } = require('../middleware/auth.middleware');
 
 const { validator } = require('../middleware/goods.middleware');
@@ -18,5 +18,8 @@ router.post('/', auth, hadAdminPermission, validator, create);
 
 // 修改商品接口
 router.put('/:id', auth, hadAdminPermission, validator, update)
+
+// 硬删除接口
+router.delete('/:id', auth, hadAdminPermission, remove)
 
 module.exports = router;

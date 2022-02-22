@@ -1,6 +1,6 @@
 const path = require('path');
 const { fileUploadError, unSupportFileType, publishGoodsError, invalidGoodsId } = require('../constant/err.type');
-const { createGoods, updateGoods } = require('../service/goods.service');
+const { createGoods, updateGoods, removeGoods } = require('../service/goods.service');
 class GoodsController {
   async upload (ctx, next) {
     const fileType = ['image/jpg', 'image/jpeg', 'image/png', 'image/webp'];
@@ -40,7 +40,7 @@ class GoodsController {
     }
   }
 
-  // 
+  // 修改
   async update (ctx) {
     try {
       const res = await updateGoods(ctx.params.id, ctx.request.body);
@@ -55,6 +55,16 @@ class GoodsController {
       }
     } catch(err) {
       console.error(err);
+    }
+  }
+
+  // 硬删除
+  async remove (ctx) {
+    const res = await removeGoods(ctx.params.id);
+    ctx.body = {
+      code: 0,
+      message: '删除商品成功',
+      result: ''
     }
   }
 
