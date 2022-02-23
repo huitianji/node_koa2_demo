@@ -25,6 +25,29 @@ class goodsService {
     const res = await Goods.restore({ where: { id } });
     return res > 0 ? true : false; 
   }
+  
+  // 查询商品数量
+  // select count(*) from db_goods where deletedAt is null  
+  async findGoods (pageNum, pageSize) {
+    // 方法1
+    // // 1.获取总数
+    // const count = await Goods.count();
+    // // 2.获取分页的具体数据
+    // // pageSize * 1 隐式转换 数值型
+    // const offset = (pageNum -1) * pageSize;
+    // const rows = await Goods.findAll({ offset, limit: pageSize * 1 });
+
+    // 方法2
+    const offset = (pageNum -1) * pageSize;
+    const { count, rows } = await Goods.findAndCountAll({ offset, limit: pageSize * 1 });
+
+    return {
+      pageNum,
+      pageSize,
+      total: count,
+      list: rows
+    }
+  }
 }
 
 module.exports = new goodsService();

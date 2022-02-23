@@ -1,6 +1,6 @@
 const path = require('path');
 const { fileUploadError, unSupportFileType, publishGoodsError, invalidGoodsId } = require('../constant/err.type');
-const { createGoods, updateGoods, removeGoods, restoreGoods } = require('../service/goods.service');
+const { createGoods, updateGoods, removeGoods, restoreGoods, findGoods } = require('../service/goods.service');
 class GoodsController {
   async upload (ctx, next) {
     const fileType = ['image/jpg', 'image/jpeg', 'image/png', 'image/webp'];
@@ -92,7 +92,20 @@ class GoodsController {
     }
   }
 
-  // 
+  // 查询
+  async findAll(ctx) {
+    // 1.解析pageNum 和 pageSize
+    const { pageNum = 1, pageSize = 10 } = ctx.request.query;
+    // 2.调用数据处理的相关方法
+    const res = await findGoods(pageNum, pageSize);
+    // 3.返回结果
+    ctx.body = {
+      code: 0,
+      message: '获取简历列表成功',
+      result: res
+    }
+    // 
+  }
 
 }
 
